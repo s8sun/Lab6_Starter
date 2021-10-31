@@ -3,6 +3,10 @@ class RecipeCard extends HTMLElement {
     // Part 1 Expose - TODO
 
     // You'll want to attach the shadow DOM here
+    // https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements
+    super();
+    // Create a shadow root
+    this.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
   }
 
   set data(data) {
@@ -100,7 +104,56 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    
+    let thumbnail_img = document.createElement("img");
+    thumbnail_img.src = searchForKey(data, "thumbnailUrl");
+    thumbnail_img.alt = searchForKey(data, "headline");
+    card.appendChild(thumbnail_img);
+
+    let link_p = document.createElement("p");
+    let link_a = document.createElement("a");
+    link_p.className = "title";
+    link_a.href = getUrl(data);
+    link_a.text = searchForKey(data, "headline");
+    link_p.appendChild(link_a);
+    card.appendChild(link_p);
+
+    let org_p = document.createElement("p");
+    org_p.className = "organization";
+    org_p.innerHTML = getOrganization(data);
+    card.appendChild(org_p);
+
+    let rating_div = document.createElement("div");
+    let rating = searchForKey(data, "ratingValue");
+    // console.log(rating);
+
+    if(rating != undefined){
+      console.log(rating);
+
+    }
+    else{
+      let noReview_span = document.createElement("span");
+      noReview_span.innerHTML = "No Reviews";
+      rating_div.appendChild(noReview_span);
+    }
+    card.appendChild(rating_div);
+
+
+
+
+
+
+
+
+    this.shadowRoot.appendChild(styleElem);
+    this.shadowRoot.appendChild(card);
+    
   }
+  
+
+
+    
+  
 }
 
 
