@@ -134,7 +134,7 @@ class RecipeCard extends HTMLElement {
       rating_num_span.innerHTML = rating;
       let star_img = document.createElement("img");
       let rounded_string = Math.round(rating).toString()
-      star_img.src = "/assets/images/icons/" + rounded_string + "-star.svg";
+      star_img.src = "assets/images/icons/" + rounded_string + "-star.svg";
       let review_count_span = document.createElement("span");
       review_count_span.innerHTML = "(" + searchForKey(data, "ratingCount") + ")"
       rating_div.appendChild(rating_num_span);
