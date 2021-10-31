@@ -124,12 +124,22 @@ class RecipeCard extends HTMLElement {
     card.appendChild(org_p);
 
     let rating_div = document.createElement("div");
+    rating_div.className = "rating";
     let rating = searchForKey(data, "ratingValue");
     // console.log(rating);
 
     if(rating != undefined){
-      console.log(rating);
-
+      // console.log(rating);
+      let rating_num_span = document.createElement("span");
+      rating_num_span.innerHTML = rating;
+      let star_img = document.createElement("img");
+      let rounded_string = Math.round(rating).toString()
+      star_img.src = "/assets/images/icons/" + rounded_string + "-star.svg";
+      let review_count_span = document.createElement("span");
+      review_count_span.innerHTML = "(" + searchForKey(data, "ratingCount") + ")"
+      rating_div.appendChild(rating_num_span);
+      rating_div.appendChild(star_img);
+      rating_div.appendChild(review_count_span);
     }
     else{
       let noReview_span = document.createElement("span");
@@ -138,7 +148,14 @@ class RecipeCard extends HTMLElement {
     }
     card.appendChild(rating_div);
 
+    let time_ele = document.createElement("time");
+    time_ele.innerHTML = convertTime(searchForKey(data, "totalTime"));
+    card.appendChild(time_ele);
 
+    let ingredient_p = document.createElement("p");
+    ingredient_p.className = "ingredients";
+    ingredient_p.innerHTML = createIngredientList(searchForKey(data, "recipeIngredient"));
+    card.appendChild(ingredient_p);
 
 
 
